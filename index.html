@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Word Guess</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    
+</head>
+<body>
+<!-- Background setup -->
+<div class="background-overlay"></div>  
+<!-- Title Header  -->
+<header class="container text-center mt-4">
+    <h1 class="text-white">Photographer's Word Guess</h1>
+</header>
+
+
+
+<!-- Footer and photo cred -->
+<div class="container fixed-bottom text-center text-light">
+    <p>Background image thanks to: Photo by William Bayreuther on Unsplash</p>
+</div>
+<script>
+//Word Guess Game Logic
+const wordGuessGame = {
+    //Array of words to choose from
+    words: ["camera","lens","shutter","canon","nikon","panasonic","aperature","aspect ratio","bokeh","film","focal length","flash","exposure","manual","metering","noise","raw"],
+    // Random Number generated and assigned to pick a word from the word array
+    generateWord: function() {
+        return this.words[Math.floor(Math.random() * this.words.length)];
+    }
+    
+
+}
+
+// Event tracker for keystrokes
+
+//Game results - array of losses vs wins
+
+//Winning
+
+//Losing
+
+console.log(wordGuessGame.generateWord());
+
+</script>
+</body>
+</html>
