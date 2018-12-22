@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
     
 </head>
 <body>
@@ -17,8 +19,17 @@
     <h1 class="text-white">Photographer's Word Guess</h1>
 </header>
 
-
-
+<div class="text-center mt-5">
+    <h2 class="text-white" id="pressKey">Press any key to play!</h2>
+</div>
+<!-- Answer area -->
+<div class="container text-center text-white">
+    <h5 id="answer"></h5>
+</div>
+<!-- Guess area -->
+<div class="container text-center text-white">
+    <h5 id="guesses"></h5>
+</div>
 <!-- Footer and photo cred -->
 <div class="container fixed-bottom text-center text-light">
     <p>Background image thanks to: Photo by William Bayreuther on Unsplash</p>
@@ -31,20 +42,49 @@ const wordGuessGame = {
     // Random Number generated and assigned to pick a word from the word array
     generateWord: function() {
         return this.words[Math.floor(Math.random() * this.words.length)];
-    }
+    },    
+    guesses: [],
     
-
 }
-
+const hyphened = "";
+const word = wordGuessGame.generateWord();
 // Event tracker for keystrokes
+
+//Game End logic
+var gameEnd = () => {
+    if (wordGuessGame.guesses.length == 9) {
+        document.onkeyopress =
+            function(event) {
+                event
+            }
+            alert("Oh no! You lose!");
+        }
+    };
+
+//Game start logic
+document.onkeypress = function(event) {
+    document.getElementById('pressKey').style.cssText = "display: none";
+        keyGuess = event.key;
+        const answer = document.getElementById("answer");
+        for (i = 0; i < word.length; i++) {
+                answer.textContent = word[i] + "-";
+                console.log(word);
+            };
+
+        // if (!word.includes(keyGuess)) {
+        //     document.getElementById("guesses").textContent += event.key;
+        //     wordGuessGame.guesses.push(keyGuess);
+        // };
+        gameEnd();
+        console.log(wordGuessGame.guesses);
+        console.log(word);
+};
 
 //Game results - array of losses vs wins
 
 //Winning
 
 //Losing
-
-console.log(wordGuessGame.generateWord());
 
 </script>
 </body>

@@ -1,5 +1,5 @@
 body {
-    background-image: url(assets/camera-bg.jpg);
+    background: url(assets/camera-bg.jpg) no-repeat center center fixed;
     background-size: cover;
 }
 
@@ -10,4 +10,8 @@ body {
     z-index: -1;
     position: absolute;
     top: 0;
+}
+
+#pressKey {
+    display: initial;
 }
