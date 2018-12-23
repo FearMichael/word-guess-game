@@ -28,6 +28,10 @@ body {
     display: none;
 }
 
+#lossSound {
+    display: none;
+}
+
 .play-bg {
     background: rgba(31, 28, 28, 0.753);
     border:  rgba(31, 28, 28, 0.527);

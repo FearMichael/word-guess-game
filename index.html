@@ -8,10 +8,16 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
     
 </head>
 <body>
+    <!-- Audio files -->
+    <audio id="lossSound">
+        <source src="michael-scott-no.mp3" type="audio/mp3">
+    </audio>
+    <audio id="winSound">
+            <source src="dwight-promotion.mp3" type="audio/mp3">
+        </audio>
 <!-- Background setup -->
 <div class="background-overlay"></div>  
 <!-- Title Header  -->
@@ -24,7 +30,7 @@
 </div> -->
 <!-- Answer area -->
 <div class="container text-center text-white my-4">
-    <h3 id="answer"></h3>
+    <h2 id="answer"></h2>
 </div>
 <!-- Guess area -->
 <div class="row">
@@ -33,7 +39,7 @@
             <h3 id="wins"></h3>
     </div> 
     <div class="col-4 container text-center text-white my-4" id="guess-box">
-        <h4>Guesses:</h4>
+        <h4>Guesses:<span id="guessesLeft"></span></h4>
         <h5 id="guesses"></h5>
     </div>
         
@@ -49,6 +55,7 @@
 </div>
 <div class="container" id="loser">
         <h1 class="text-center text-white">Oh No... You Lost!</h1>
+        <h2 class="text-center text-white">The word was<span id="word"></span></h2>
         <h3 class="text-center text-white">Try Again?</h3>
     </div>
 <div class="container text-center mt-3 p-3">
@@ -71,48 +78,63 @@ const wordGuessGame = {
     playButton: $("#play"),
 }
 
-const hyphened = "";
-let word;
-var maskWord = [];
+// Declare variables
+let word; 
+var maskWord;
 var answer = $("#answer");
-var losses = $("#losses");
-var wins = $("#wins");
+var losses = 0;
+var wins = 0;
+var guessCount;
+var lossSound = $("#lossSound")[0];
+var winSound = $("#winSound")[0];
 
+//Game start logic
+wordGuessGame.playButton.on('click', function() {
+   answer.html("");
+   $("#guesses").text("");
+   maskWord = [];
+    word = wordGuessGame.generateWord();
+    for (i = 0; i < word.length; i++) {
+            if (word[i] == " ") {
+            maskWord[i] = "&nbsp;";
+            console.log(maskWord);
+            } else if (word[i] !== " ") {
+            maskWord[i] = " _ ";
+            }
+            };
+            answer.html(maskWord.join(' '));
+    wordGuessGame.playButton.hide(800);
+    wordGuessGame.guesses = [];
+    $("#guess-box").show();
+    $("#winner").hide();
+    $("#loser").hide();
+    guessCount = word.length + 3;
+    console.log(word);
+});
 //Game End logic
 var gameEnd = () => {
-    if (wordGuessGame.guesses.length == word.length + 5) {
+    if (wordGuessGame.guesses.length === word.length + 5) {
         $("#loser").show(800);
         $("#play").show();
-        losses.append(+1);
+        losses++;
+        $("#losses").text(losses);
+        lossSound.play();
+        $("#word") = word;
         }
+       
     if (maskWord.join('') == word) {
         $("#winner").show(800);
         $("#play").show();
-        wins.append(+1);
+        wins++;
+        $("#wins").text(wins);
+        $("body").hide(001);
+        $("body").show(001);
+        winSound.play();
     }
     };
     document.onkeypress = function(event) {
         return false;
     };
-//Game start logic
-wordGuessGame.playButton.on('click', function() {
-   answer.empty();
-    word = wordGuessGame.generateWord();    
-    for (i = 0; i < word.length; i++) {
-            if (word[i] == " ") {
-                console.log(word[i]);
-            maskWord[i] = " "
-            } else if (word[i] !== " ") {
-            maskWord[i] = " - ";
-            }
-            };
-            answer.text(maskWord.join(""));
-    wordGuessGame.playButton.hide(800);
-    wordGuessGame.guesses = [];
-    $("#guess-box").show();
-    
-});
-
 // Keystroke and guess recognition
 document.onkeypress = function(event) {
         var keyGuess = event.key;
@@ -121,23 +143,20 @@ document.onkeypress = function(event) {
                 console.log(word.indexOf(keyGuess));
                 wordGuessGame.guesses.push(keyGuess);
                 $("#guesses").append(" " + keyGuess + " ");
+                guessCount -= 1;
             } else {
                 for (i=0; i<word.length; i++) {
                     if (word[i] == keyGuess) {
                         maskWord[i] = keyGuess;
-                        answer.text(maskWord.join(''));
+                        answer.html(maskWord.join(' '));
 
                     }
                 }
             };
         gameEnd();
+
+        $("#guessesLeft").text(" / Remain:" + guessCount);
 };
-
-//Game results - array of losses vs wins
-
-//Winning
-
-//Losing
 
 </script>
 </body>
