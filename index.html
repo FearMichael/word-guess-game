@@ -27,10 +27,22 @@
     <h3 id="answer"></h3>
 </div>
 <!-- Guess area -->
-<div class="container text-center text-white my-4" id="guess-box">
-    <h4>Guesses:</h4>
-    <h5 id="guesses"></h5>
+<div class="row">
+    <div class="container col-4 text-white text-center">
+            <h3>Wins:</h3>
+            <h3 id="wins"></h3>
+    </div> 
+    <div class="col-4 container text-center text-white my-4" id="guess-box">
+        <h4>Guesses:</h4>
+        <h5 id="guesses"></h5>
+    </div>
+        
+    <div class="container col-4 text-white text-center">
+        <h3>Losses:</h3>
+        <h3 id="losses"></h3>
+    </div>
 </div>
+<!-- visible at game end -->
 <div class="container" id="winner">
     <h1 class="text-center text-white">CONGRATS! YOU WON!</h1>
     <h3 class="text-center text-white">Play Again?</h3>
@@ -63,16 +75,20 @@ const hyphened = "";
 let word;
 var maskWord = [];
 var answer = $("#answer");
+var losses = $("#losses");
+var wins = $("#wins");
 
 //Game End logic
 var gameEnd = () => {
     if (wordGuessGame.guesses.length == word.length + 5) {
         $("#loser").show(800);
         $("#play").show();
+        losses.append(+1);
         }
     if (maskWord.join('') == word) {
         $("#winner").show(800);
         $("#play").show();
+        wins.append(+1);
     }
     };
     document.onkeypress = function(event) {
@@ -101,10 +117,10 @@ wordGuessGame.playButton.on('click', function() {
 document.onkeypress = function(event) {
         var keyGuess = event.key;
             console.log(keyGuess);
-            if (word.indexOf(keyGuess) === -1) {
+            if (word.indexOf(keyGuess) === -1 && wordGuessGame.guesses.includes(keyGuess) == false) {
                 console.log(word.indexOf(keyGuess));
                 wordGuessGame.guesses.push(keyGuess);
-                $("#guesses").append(" " + keyGuess);
+                $("#guesses").append(" " + keyGuess + " ");
             } else {
                 for (i=0; i<word.length; i++) {
                     if (word[i] == keyGuess) {
