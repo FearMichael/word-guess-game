@@ -15,3 +15,21 @@ body {
 #play {
     display: initial;
 }
+
+#winner {
+    display: none;
+}
+
+#guess-box {
+    display: none;
+}
+
+#loser {
+    display: none;
+}
+
+.play-bg {
+    background: rgba(31, 28, 28, 0.753);
+    border:  rgba(31, 28, 28, 0.527);
+    font-size: 60px;
+}

@@ -23,16 +23,24 @@
     <h2 class="text-white" id="pressKey">Press any key to play!</h2>
 </div> -->
 <!-- Answer area -->
-<div class="container text-center text-white">
-    <h5 id="answer"></h5>
+<div class="container text-center text-white my-4">
+    <h3 id="answer"></h3>
 </div>
 <!-- Guess area -->
-<div class="container text-center text-white">
+<div class="container text-center text-white my-4" id="guess-box">
     <h4>Guesses:</h4>
     <h5 id="guesses"></h5>
 </div>
+<div class="container" id="winner">
+    <h1 class="text-center text-white">CONGRATS! YOU WON!</h1>
+    <h3 class="text-center text-white">Play Again?</h3>
+</div>
+<div class="container" id="loser">
+        <h1 class="text-center text-white">Oh No... You Lost!</h1>
+        <h3 class="text-center text-white">Try Again?</h3>
+    </div>
 <div class="container text-center mt-3 p-3">
-    <button class="btn btn-lg btn-success" id="play">PLAY!</button>
+    <button class="btn btn-lg btn-success play-bg p-3" id="play">PLAY!</button>
 </div>
 <!-- Footer and photo cred -->
 <div class="container fixed-bottom text-center text-light">
@@ -48,65 +56,65 @@ const wordGuessGame = {
         return this.words[Math.floor(Math.random() * this.words.length)];
     },    
     guesses: [],
-    maskWord: "",
     playButton: $("#play"),
-
-
 }
+
 const hyphened = "";
-const word = wordGuessGame.generateWord();
-// Event tracker for keystrokes
+let word;
+var maskWord = [];
+var answer = $("#answer");
 
 //Game End logic
 var gameEnd = () => {
-    if (wordGuessGame.guesses.length == 9) {
-        document.onkeyopress =
-            function(event) {
-                event
-            }
-            alert("Oh no! You lose!");
+    if (wordGuessGame.guesses.length == word.length + 5) {
+        $("#loser").show(800);
+        $("#play").show();
         }
+    if (maskWord.join('') == word) {
+        $("#winner").show(800);
+        $("#play").show();
+    }
+    };
+    document.onkeypress = function(event) {
+        return false;
     };
 //Game start logic
 wordGuessGame.playButton.on('click', function() {
-    let answer = document.getElementById("answer");
-        for (i = 0; i < word.length; i++) {
+   answer.empty();
+    word = wordGuessGame.generateWord();    
+    for (i = 0; i < word.length; i++) {
             if (word[i] == " ") {
-            wordGuessGame.maskWord = word.replace(/" "/gi, " ");
-            } else if (word[i] != " ") {
-            wordGuessGame.maskWord = word.replace(/[a-z\d]/gi, " - ");
-            answer.textContent = wordGuessGame.maskWord;
+                console.log(word[i]);
+            maskWord[i] = " "
+            } else if (word[i] !== " ") {
+            maskWord[i] = " - ";
             }
             };
+            answer.text(maskWord.join(""));
     wordGuessGame.playButton.hide(800);
+    wordGuessGame.guesses = [];
+    $("#guess-box").show();
+    
 });
 
 // Keystroke and guess recognition
 document.onkeypress = function(event) {
-        keyGuess = event.key;
-            console.log(word.includes(keyGuess));
-        for (i=0; i < word.length; i++) {
-            if (word[i] == keyGuess) {
-                answer.textContent = wordGuessGame.maskWord[i] = keyGuess;
-            } else {
+        var keyGuess = event.key;
+            console.log(keyGuess);
+            if (word.indexOf(keyGuess) === -1) {
+                console.log(word.indexOf(keyGuess));
                 wordGuessGame.guesses.push(keyGuess);
-            }
-        };
-        
-        
-        
-        //     if (word.includes(keyGuess)) {
-        //     answer.textContent = wordGuessGame.maskWord.replace(/wordGuessGame.maskWord[keyGuess]/i, keyGuess);
-        //     console.log(wordGuessGame.maskWord);
-        //     console.log(wordGuessGame.maskWord.replace(wordGuessGame.maskWord[keyGuess], keyGuess));
-        // } else if (keyGuess !== word || keyGuess !== wordGuessGame.guesses) {
-        //     wordGuessGame.guesses = keyGuess;
-        //     $("#guesses").append(" " + keyGuess);
-        // };        
-        // if (!word.includes(keyGuess)) {
-        //     document.getElementById("guesses").textContent += event.key;
-        //     wordGuessGame.guesses.push(keyGuess);
-        // };
+                $("#guesses").append(" " + keyGuess);
+            } else {
+                for (i=0; i<word.length; i++) {
+                    if (word[i] == keyGuess) {
+                        maskWord[i] = keyGuess;
+                        answer.text(maskWord.join(''));
+
+                    }
+                }
+            };
+        gameEnd();
 };
 
 //Game results - array of losses vs wins
