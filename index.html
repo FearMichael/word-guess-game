@@ -69,10 +69,10 @@
 //Word Guess Game Logic
 const wordGuessGame = {
     //Array of words to choose from
-    words: ["camera","lens","shutter","canon","nikon","panasonic","aperature","aspect ratio","bokeh","film","focal length","flash","exposure","manual","metering","noise","raw"],
+    words: ["camera","lens","shutter","canon","nikon","panasonic","aperature","aspect ratio","bokeh","film","focal length","flash","exposure","manual","metering","noise","raw","negative","print","portrait","red eye","zoom","telephoto","full frame","stabilizer"],
     // Random Number generated and assigned to pick a word from the word array
     generateWord: function() {
-        return this.words[Math.floor(Math.random() * this.words.length)];
+        return this.words[Math.floor(Math.random() * this.words.length -1)];
     },    
     guesses: [],
     playButton: $("#play"),
