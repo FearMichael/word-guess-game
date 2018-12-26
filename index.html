@@ -39,8 +39,10 @@
             <h3 id="wins"></h3>
     </div> 
     <div class="col-4 container text-center text-white my-4" id="guess-box">
-        <h4>Guesses:<span id="guessesLeft"></span></h4>
+        <h4>Guesses:</h4>
         <h5 id="guesses"></h5>
+        <h4>Remaining:</h4>
+        <h5 id="guessesLeft"></h5>
     </div>
         
     <div class="container col-4 text-white text-center">
@@ -79,7 +81,7 @@ const wordGuessGame = {
 }
 
 // Declare variables
-let word; 
+let word = "focal length"
 var maskWord;
 var answer = $("#answer");
 var losses = 0;
@@ -90,25 +92,27 @@ var winSound = $("#winSound")[0];
 
 //Game start logic
 wordGuessGame.playButton.on('click', function() {
-   answer.html("");
+   answer.text("");
    $("#guesses").text("");
+   $("#guessesLeft").text("");
    maskWord = [];
-    word = wordGuessGame.generateWord();
+    // word = wordGuessGame.generateWord(); BUG TESTING - REACTIVATE
     for (i = 0; i < word.length; i++) {
-            if (word[i] == " ") {
-            maskWord[i] = "&nbsp;";
-            console.log(maskWord);
+            if (word[i] === " ") {
+            maskWord[i] = " ";
             } else if (word[i] !== " ") {
-            maskWord[i] = " _ ";
+            maskWord[i] = "_";
             }
             };
-            answer.html(maskWord.join(' '));
+            // document.getElementById("answer").textContent = maskWord.join('');
+            answer.text(maskWord.join(" "));
     wordGuessGame.playButton.hide(800);
     wordGuessGame.guesses = [];
     $("#guess-box").show();
     $("#winner").hide();
     $("#loser").hide();
     guessCount = word.length + 3;
+    $("#guessesLeft").text(guessCount);
     console.log(word);
 });
 //Game End logic
@@ -119,7 +123,7 @@ var gameEnd = () => {
         losses++;
         $("#losses").text(losses);
         lossSound.play();
-        $("#word") = word;
+        $("#word").html("&nbsp;" + word);
         }
        
     if (maskWord.join('') == word) {
@@ -148,14 +152,14 @@ document.onkeypress = function(event) {
                 for (i=0; i<word.length; i++) {
                     if (word[i] == keyGuess) {
                         maskWord[i] = keyGuess;
-                        answer.html(maskWord.join(' '));
+                        answer.text(maskWord.join(' '));
 
                     }
                 }
             };
         gameEnd();
 
-        $("#guessesLeft").text(" / Remain:" + guessCount);
+        $("#guessesLeft").text(guessCount);
 };
 
 </script>
