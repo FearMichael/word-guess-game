@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="wordGuessLogic.js"></script>
     
 </head>
 <body>
@@ -34,7 +35,7 @@
 </div>
 <!-- Guess area -->
 <div class="row">
-    <div class="container col-4 text-white text-center">
+    <div class="container col-4 text-white text-center" id="stats-win">
             <h3>Wins:</h3>
             <h3 id="wins"></h3>
     </div> 
@@ -45,7 +46,7 @@
         <h5 id="guessesLeft"></h5>
     </div>
         
-    <div class="container col-4 text-white text-center">
+    <div class="container col-4 text-white text-center" id="stats-lose">
         <h3>Losses:</h3>
         <h3 id="losses"></h3>
     </div>
@@ -63,105 +64,15 @@
 <div class="container text-center mt-3 p-3">
     <button class="btn btn-lg btn-success play-bg p-3" id="play">PLAY!</button>
 </div>
+<div class="container text-light text-center">
+    <h4>Instructions:</h4>
+    <p>Press the key of the letter you'd like to guess.<br/>
+    Spaces between words are displayed as underscores or _ <br/>
+    The number of incorrect guesses remaining will be displayed beneath the guesses you have made.</p>
+</div>
 <!-- Footer and photo cred -->
 <div class="container fixed-bottom text-center text-light">
     <p>Background image thanks to: Photo by William Bayreuther on Unsplash</p>
 </div>
-<script>
-//Word Guess Game Logic
-const wordGuessGame = {
-    //Array of words to choose from
-    words: ["camera","lens","shutter","canon","nikon","panasonic","aperature","aspect ratio","bokeh","film","focal length","flash","exposure","manual","metering","noise","raw","negative","print","portrait","red eye","zoom","telephoto","full frame","stabilizer"],
-    // Random Number generated and assigned to pick a word from the word array
-    generateWord: function() {
-        return this.words[Math.floor(Math.random() * this.words.length -1)];
-    },    
-    guesses: [],
-    playButton: $("#play"),
-}
-
-// Declare variables
-let word = "focal length"
-var maskWord;
-var answer = $("#answer");
-var losses = 0;
-var wins = 0;
-var guessCount;
-var lossSound = $("#lossSound")[0];
-var winSound = $("#winSound")[0];
-
-//Game start logic
-wordGuessGame.playButton.on('click', function() {
-   answer.text("");
-   $("#guesses").text("");
-   $("#guessesLeft").text("");
-   maskWord = [];
-    // word = wordGuessGame.generateWord(); BUG TESTING - REACTIVATE
-    for (i = 0; i < word.length; i++) {
-            if (word[i] === " ") {
-            maskWord[i] = " ";
-            } else if (word[i] !== " ") {
-            maskWord[i] = "_";
-            }
-            };
-            // document.getElementById("answer").textContent = maskWord.join('');
-            answer.text(maskWord.join(" "));
-    wordGuessGame.playButton.hide(800);
-    wordGuessGame.guesses = [];
-    $("#guess-box").show();
-    $("#winner").hide();
-    $("#loser").hide();
-    guessCount = word.length + 3;
-    $("#guessesLeft").text(guessCount);
-    console.log(word);
-});
-//Game End logic
-var gameEnd = () => {
-    if (wordGuessGame.guesses.length === word.length + 3) {
-        $("#loser").show(800);
-        $("#play").show();
-        losses++;
-        $("#losses").text(losses);
-        lossSound.play();
-        $("#word").html("&nbsp;" + word);
-        }
-       
-    if (maskWord.join('') == word) {
-        $("#winner").show(800);
-        $("#play").show();
-        wins++;
-        $("#wins").text(wins);
-        $("body").hide(001);
-        $("body").show(001);
-        winSound.play();
-    }
-    };
-    document.onkeypress = function(event) {
-        return false;
-    };
-// Keystroke and guess recognition
-document.onkeypress = function(event) {
-        var keyGuess = event.key;
-            console.log(keyGuess);
-            if (word.indexOf(keyGuess) === -1 && wordGuessGame.guesses.includes(keyGuess) == false) {
-                console.log(word.indexOf(keyGuess));
-                wordGuessGame.guesses.push(keyGuess);
-                $("#guesses").append(" " + keyGuess + " ");
-                guessCount -= 1;
-            } else {
-                for (i=0; i<word.length; i++) {
-                    if (word[i] == keyGuess) {
-                        maskWord[i] = keyGuess;
-                        answer.text(maskWord.join(' '));
-
-                    }
-                }
-            };
-        gameEnd();
-
-        $("#guessesLeft").text(guessCount);
-};
-
-</script>
 </body>
 </html>

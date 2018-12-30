@@ -37,3 +37,11 @@ body {
     border:  rgba(31, 28, 28, 0.527);
     font-size: 60px;
 }
+
+#stats-win {
+    display: none;
+}
+
+#stats-lose {
+    display: none;
+}
