@@ -22,7 +22,15 @@ var guessCount;
 var lossSound = $("#lossSound")[0];
 var winSound = $("#winSound")[0];
 
+// NOTES
+// - Should add filtering for non-key alphabetic keystrokes
+// - Should stop monitoring keystrokes once game has ended 
+// - How would I create logic to handle spaces? Tried various combinations of solutions and googling but nothing worked - often the masked word would not match the selected word.
+// - Words sometimes repeated often - add a way to remove played words or pull in a larger list from another source?
+
+
 //Game start logic
+
 wordGuessGame.playButton.on('click', function() {
    answer.text("");
    $("#guesses").text("");
