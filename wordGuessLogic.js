@@ -23,7 +23,6 @@ var lossSound = $("#lossSound")[0];
 var winSound = $("#winSound")[0];
 
 // NOTES
-// - Should add filtering for non-key alphabetic keystrokes
 // - Should stop monitoring keystrokes once game has ended 
 // - Words sometimes repeated often - add a way to remove played words or pull in a larger list from another source?
 
