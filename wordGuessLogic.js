@@ -3,7 +3,7 @@ $(document).ready(function(){
     //Word Guess Game Logic
 const wordGuessGame = {
     //Array of words to choose from
-    words: ["camera","lens","shutter","canon","nikon","panasonic","aperature","aspect_ratio","bokeh","film","focal length","flash","exposure","manual","metering","noise","raw","negative","print","portrait","red_eye","zoom","telephoto","full_frame","stabilizer"],
+    words: ["camera","lens","shutter","canon","nikon","panasonic","aperature","aspect ratio","bokeh","film","focal length","flash","exposure","manual","metering","noise","raw","negative","print","portrait","red_eye","zoom","telephoto","full frame","stabilizer"],
     // Random Number generated and assigned to pick a word from the word array
     generateWord: function() {
         return this.words[Math.floor(Math.random() * this.words.length -1)];
@@ -25,7 +25,6 @@ var winSound = $("#winSound")[0];
 // NOTES
 // - Should add filtering for non-key alphabetic keystrokes
 // - Should stop monitoring keystrokes once game has ended 
-// - How would I create logic to handle spaces? Tried various combinations of solutions and googling but nothing worked - often the masked word would not match the selected word.
 // - Words sometimes repeated often - add a way to remove played words or pull in a larger list from another source?
 
 
@@ -38,14 +37,14 @@ wordGuessGame.playButton.on('click', function() {
    maskWord = [];
     word = wordGuessGame.generateWord();
     for (i = 0; i < word.length; i++) {
-            if (word[i] === "_") {
-            maskWord[i] = "_";
-            } else if (word[i] != "_") {
+            if (word[i] === " ") {
+            maskWord[i] = " ";
+            } else if (word[i] != " ") {
             maskWord[i] = "-";
             }
             };
             document.getElementById("answer").textContent = maskWord.join('');
-            answer.text(maskWord.join(" "));
+            answer.text(maskWord.join(""));
     wordGuessGame.playButton.hide(800);
     wordGuessGame.guesses = [];
     $("#guess-box").show();
@@ -81,6 +80,7 @@ var gameEnd = () => {
 // Keystroke and guess recognition
 document.onkeypress = function(event) {
         var keyGuess = event.key;
+        if (event.which > 96 && event.which < 123) {
             console.log(keyGuess);
             if (word.indexOf(keyGuess) === -1 && wordGuessGame.guesses.includes(keyGuess) == false) {
                 console.log(word.indexOf(keyGuess));
@@ -91,15 +91,16 @@ document.onkeypress = function(event) {
                 for (i=0; i<word.length; i++) {
                     if (word[i] == keyGuess) {
                         maskWord[i] = keyGuess;
-                        answer.text(maskWord.join(' '));
-
+                        answer.text(maskWord.join(''));
                     }
                 }
             };
         gameEnd();
 
         $("#guessesLeft").text(guessCount);
+    } else if (event.which > 64 && event.which < 91) {
+        event
+    }
 };
 
 });
-
