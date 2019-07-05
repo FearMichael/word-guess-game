@@ -93,7 +93,7 @@ wordGuessGame.playButton.on('click', function() {
 });
 //Game End logic
 var gameEnd = () => {
-    if (wordGuessGame.guesses.length === word.length + 3) {
+    if (wordGuessGame.guesses.length === 7) {
         $("#loser").show(800);
         $("#play").show();
         losses++;
