@@ -4,7 +4,7 @@ $(document).ready(function(){
 const wordGuessGame = {
     //Array of words to choose from
     getWords: async function() {
-        await $.get("http://api.datamuse.com/words?topics=photography", function(data) {
+        await $.get("https://api.datamuse.com/words?topics=photography", function(data) {
         data.forEach(elem => {
             return wordGuessGame.words.push(elem.word)
         });
