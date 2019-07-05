@@ -13,9 +13,7 @@ const wordGuessGame = {
     words: [],
     // words: ["camera","lens","shutter","canon","nikon","panasonic","aperature","aspect ratio","bokeh","film","focal length","flash","exposure","manual","metering","noise","raw","negative","print","portrait","red_eye","zoom","telephoto","full frame","stabilizer"],
     getDefinition: function (word) {
-        console.log(encodeURIComponent(word));
         $.get(`https://googledictionaryapi.eu-gb.mybluemix.net/?define=${encodeURIComponent(word)}`).then(data => {
-            console.log(data);
             let wordDefinition;
             let word;
             if (data[0].meaning.noun) {
@@ -74,7 +72,6 @@ wordGuessGame.playButton.on('click', function() {
    wordGuessGame.definitionArea.hide(800);
    maskWord = [];
     word = wordGuessGame.generateWord();
-    console.log(word)
     for (i = 0; i < word.length; i++) {
             if (word[i] === " ") {
             maskWord[i] = " ";
