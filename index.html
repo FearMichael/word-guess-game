@@ -34,24 +34,36 @@
     <h2 id="answer"></h2>
 </div>
 <!-- Guess area -->
-<div class="row">
-    <div class="container col-4 text-white text-center" id="stats-win">
+<div class="container">
+
+    <div class="row">
+        <div class="container col-4 text-white text-center" id="stats-win">
             <h3>Wins:</h3>
             <h3 id="wins"></h3>
-    </div> 
-    <div class="col-4 container text-center text-white my-4" id="guess-box">
-        <h4>Guesses:</h4>
-        <h5 id="guesses"></h5>
-        <h4>Remaining:</h4>
-        <h5 id="guessesLeft"></h5>
-    </div>
+        </div> 
+        <div class="col-4 container text-center text-white my-4" id="guess-box">
+            <h4>Guesses:</h4>
+            <h5 id="guesses"></h5>
+            <h4>Remaining:</h4>
+            <h5 id="guessesLeft"></h5>
+        </div>
         
-    <div class="container col-4 text-white text-center" id="stats-lose">
-        <h3>Losses:</h3>
-        <h3 id="losses"></h3>
+        <div class="container col-4 text-white text-center" id="stats-lose">
+            <h3>Losses:</h3>
+            <h3 id="losses"></h3>
+        </div>
     </div>
 </div>
-<!-- visible at game end -->
+    <!-- visible at game end -->
+<div class="container definitionArea text-center">
+    <hr>
+    <h3>Definition</h3>
+    <h5 class="definitionWord"></h5>
+    <div class="container">
+        <p class="definitionFull"></p>
+    </div>
+    <hr>
+</div>
 <div class="container" id="winner">
     <h1 class="text-center text-white">CONGRATS! YOU WON!</h1>
     <h3 class="text-center text-white">Play Again?</h3>
@@ -62,7 +74,7 @@
         <h3 class="text-center text-white">Try Again?</h3>
     </div>
 <div class="container text-center mt-3 p-3">
-    <button class="btn btn-lg btn-success play-bg p-3" id="play">PLAY!</button>
+    <button class="btn btn-lg btn-success play-bg p-3" disabled id="play">PLAY!</button>
 </div>
 <div class="container text-light text-center">
     <h4>Instructions:</h4>
